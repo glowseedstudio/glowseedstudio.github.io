@@ -55,20 +55,17 @@
     nav.scrolled { border-bottom-color: rgba(255,255,255,0.10); }
 
     .nav-brand {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center;
       text-decoration: none;
-    }
-    .nav-logo {
-      width: 28px; height: 28px;
-      object-fit: contain;
-      opacity: 0.92;
     }
     .nav-wordmark {
       font-size: 15px;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--text);
+      transition: color 0.2s;
     }
+    .nav-brand:hover .nav-wordmark { color: var(--text-2); }
 
     .nav-links {
       display: flex; align-items: center; gap: 32px;
@@ -110,7 +107,7 @@
     #hero {
       min-height: 100vh;
       display: flex; align-items: center;
-      padding: 120px 40px 100px;
+      padding: 80px 40px 100px;
       text-align: center;
     }
     .hero-inner {
@@ -119,24 +116,43 @@
       margin: 0 auto;
     }
 
+    /* Large featured logo with fade-in/out mask */
     .hero-logo-wrap {
-      width: 72px; height: 72px;
-      margin: 0 auto 48px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 22px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      animation: fade-up 0.6s var(--ease) both;
+      position: relative;
+      width: clamp(260px, 48vw, 420px);
+      margin: 0 auto 20px;
+      animation: fade-up 0.7s var(--ease) both;
     }
     .hero-logo {
-      width: 48px; height: 48px;
-      object-fit: contain;
-      opacity: 0.9;
+      width: 100%;
+      height: auto;
+      display: block;
+      /* Invert the black-on-white logo to white-on-dark */
+      filter: invert(1);
+      opacity: 0.92;
+    }
+    /* Fade the top and bottom edges into the page background */
+    .hero-logo-wrap::before,
+    .hero-logo-wrap::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 38%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-logo-wrap::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+    }
+    .hero-logo-wrap::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
     }
 
     .hero-label {
       margin-bottom: 20px;
-      animation: fade-up 0.7s 0.05s var(--ease) both;
+      animation: fade-up 0.75s 0.08s var(--ease) both;
     }
 
     h1.hero-title {
@@ -481,7 +497,6 @@
   <!-- ── NAV ──────────────────────────────────────────────────── -->
   <nav id="nav">
     <a href="/" class="nav-brand">
-      <img src="glowseedstudio.jpg" alt="Glowseed Studio" class="nav-logo" />
       <span class="nav-wordmark">Glowseed Studio</span>
     </a>
     <ul class="nav-links">
@@ -498,7 +513,7 @@
       <div class="hero-logo-wrap">
         <img src="glowseedstudio.jpg" alt="Glowseed Studio" class="hero-logo" />
       </div>
-      <p class="hero-label label">Glowseed Studio · Independent Software</p>
+      <p class="hero-label label" style="margin-top: 8px;">Independent Software · Australia</p>
       <h1 class="hero-title">
         Crafting digital utility<br /><em>without compromise.</em>
       </h1>
