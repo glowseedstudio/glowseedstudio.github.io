@@ -55,8 +55,17 @@
     nav.scrolled { border-bottom-color: rgba(255,255,255,0.10); }
 
     .nav-brand {
-      display: flex; align-items: center;
+      display: flex; align-items: center; gap: 10px;
       text-decoration: none;
+    }
+    .nav-logo {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #fff;
+      object-fit: cover;
+      object-position: center 18%;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.10);
     }
     .nav-wordmark {
       font-size: 15px;
@@ -497,6 +506,7 @@
   <!-- ── NAV ──────────────────────────────────────────────────── -->
   <nav id="nav">
     <a href="/" class="nav-brand">
+      <img src="glowseedstudio.jpg" alt="Glowseed Studio" class="nav-logo" />
       <span class="nav-wordmark">Glowseed Studio</span>
     </a>
     <ul class="nav-links">
