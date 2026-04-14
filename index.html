@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glowseed Studio — Crafting digital utility without compromise.</title>
+  <meta name="description" content="Glowseed Studio is a solo software studio from Australia building premium, offline-first Android applications. No cloud dependencies. No tracking. No compromise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,300;1,14..32,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0e0e0f;
+      --bg-2:        #161617;
+      --bg-3:        #1c1c1e;
+      --border:      rgba(255,255,255,0.07);
+      --border-hover:rgba(255,255,255,0.14);
+      --text:        #F5F5F7;
+      --text-2:      #a1a1a6;
+      --text-3:      #6e6e73;
+      --radius-lg:   20px;
+      --radius-md:   14px;
+      --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(14,14,15,0.80);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: rgba(255,255,255,0.10); }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo {
+      width: 28px; height: 28px;
+      object-fit: contain;
+      opacity: 0.92;
+    }
+    .nav-wordmark {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── LAYOUT UTILS ─────────────────────────────────────────────── */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    @media (max-width: 680px) { .container { padding: 0 20px; } }
+
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 40px 100px;
+      text-align: center;
+    }
+    .hero-inner {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-logo-wrap {
+      width: 72px; height: 72px;
+      margin: 0 auto 48px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 22px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      animation: fade-up 0.6s var(--ease) both;
+    }
+    .hero-logo {
+      width: 48px; height: 48px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    .hero-label {
+      margin-bottom: 20px;
+      animation: fade-up 0.7s 0.05s var(--ease) both;
+    }
+
+    h1.hero-title {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 24px;
+      animation: fade-up 0.8s 0.1s var(--ease) both;
+    }
+    h1.hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-2);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.2vw, 20px);
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.65;
+      max-width: 540px;
+      margin: 0 auto 48px;
+      animation: fade-up 0.85s 0.18s var(--ease) both;
+    }
+
+    .hero-cta {
+      animation: fade-up 0.9s 0.26s var(--ease) both;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
+      padding: 12px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.22s var(--ease);
+      cursor: pointer;
+    }
+    .btn-fill {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid transparent;
+    }
+    .btn-fill:hover {
+      background: #e0e0e4;
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--border-hover);
+    }
+    .btn-outline:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────────────── */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ── PHILOSOPHY ──────────────────────────────────────────────── */
+    #philosophy {
+      padding: 120px 0;
+    }
+    .philosophy-header {
+      max-width: 480px;
+      margin-bottom: 72px;
+    }
+    .philosophy-header .label { margin-bottom: 16px; }
+    .philosophy-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .philosophy-header p {
+      margin-top: 14px;
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    @media (max-width: 760px) {
+      .pillars { grid-template-columns: 1fr; }
+    }
+
+    .pillar {
+      background: var(--bg-2);
+      padding: 44px 36px;
+      transition: background 0.22s var(--ease);
+    }
+    .pillar:hover { background: var(--bg-3); }
+
+    .pillar-icon {
+      width: 40px; height: 40px;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pillar-icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--text-2);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pillar h3 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .pillar p {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* ── PORTFOLIO ───────────────────────────────────────────────── */
+    #portfolio {
+      padding: 120px 0;
+    }
+    .portfolio-header {
+      margin-bottom: 48px;
+    }
+    .portfolio-header .label { margin-bottom: 12px; }
+    .portfolio-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .app-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 680px) {
+      .app-cards { grid-template-columns: 1fr; }
+    }
+
+    .app-card {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      overflow: hidden;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .app-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s var(--ease);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .app-card.noctforge::before {
+      background: radial-gradient(ellipse at 20% 30%, rgba(0,229,255,0.06) 0%, transparent 60%);
+    }
+    .app-card.noctremote::before {
+      background: radial-gradient(ellipse at 80% 30%, rgba(244,114,182,0.06) 0%, transparent 60%);
+    }
+    .app-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .app-card:hover::before { opacity: 1; }
+
+    .card-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .noctforge .card-eyebrow { color: rgba(0,229,255,0.55); }
+    .noctremote .card-eyebrow { color: rgba(244,114,182,0.55); }
+
+    .card-name {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .card-sub {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 40px;
+    }
+    .card-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+    .card-arrow {
+      position: absolute;
+      top: 40px; right: 40px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-3);
+      transition: all 0.22s var(--ease);
+    }
+    .app-card:hover .card-arrow {
+      border-color: var(--border-hover);
+      color: var(--text);
+      transform: translate(2px, -2px);
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────────────── */
+    #about {
+      padding: 120px 0;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .about-left .label { margin-bottom: 16px; }
+    .about-left h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .about-right p {
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .about-right p:last-child { margin-bottom: 0; }
+    .about-right strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-brand {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+    }
+    .footer-links {
+      display: flex; gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text-2); }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────────── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <a href="/" class="nav-brand">
+      <img src="logo.png" alt="Glowseed Studio" class="nav-logo" />
+      <span class="nav-wordmark">Glowseed Studio</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#portfolio">Apps</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="mailto:glowseedstudio@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-logo-wrap">
+        <img src="logo.png" alt="Glowseed Studio" class="hero-logo" />
+      </div>
+      <p class="hero-label label">Glowseed Studio · Independent Software</p>
+      <h1 class="hero-title">
+        Crafting digital utility<br /><em>without compromise.</em>
+      </h1>
+      <p class="hero-sub">
+        Software that works entirely on your device. No cloud. No subscriptions.
+        No data harvesting. Just tools that respect your hardware and your time.
+      </p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn btn-fill">View Our Apps</a>
+        <a href="#about" class="btn btn-outline">Our Philosophy</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── PHILOSOPHY ────────────────────────────────────────────── -->
+  <section id="philosophy">
+    <div class="container">
+      <div class="philosophy-header reveal">
+        <p class="label">Why We Build</p>
+        <h2>A different kind of software studio.</h2>
+        <p>Three principles that guide every decision we make — from the first line of code to the final release.</p>
+      </div>
+      <div class="pillars reveal">
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 12a9 9 0 1 0 18 0A9 9 0 0 0 3 12z"/>
+              <path d="M3 12h4m10 0h4M12 3v4m0 10v4"/>
+              <path d="M8 8l1.5 1.5M14.5 14.5 16 16M8 16l1.5-1.5M14.5 9.5 16 8"/>
+            </svg>
+          </div>
+          <h3>Offline-First</h3>
+          <p>Every app we ship works entirely on your local network or device. We have no backend infrastructure, no cloud sync, and no remote servers. Your data never leaves your hands.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3>Zero Tracking</h3>
+          <p>No analytics. No advertising identifiers. No crash reporting sent to third-party services. No account required. We do not monetise you — we charge a fair one-time price and that is the end of the transaction.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Premium Craftsmanship</h3>
+          <p>Fluid animations, native performance, and glassmorphism aesthetics — because the tools you reach for every day should feel extraordinary. We build to the standard of the OS, not below it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── PORTFOLIO ──────────────────────────────────────────────── -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="portfolio-header reveal">
+        <p class="label">Our Work</p>
+        <h2>Two apps. One standard.</h2>
+      </div>
+      <div class="app-cards">
+        <a href="/noctforge" class="app-card noctforge reveal">
+          <div class="card-arrow">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2.5 11.5l9-9M4 2.5h7.5v7.5"/>
+            </svg>
+          </div>
+          <p class="card-eyebrow">NoctForge</p>
+          <h3 class="card-name">The All-in-One<br />Offline Utility Suite.</h3>
+          <p class="card-sub">42 tools. 9 games. 3 theme packs. One honest price. No subscriptions, no tracking, and no compromise on quality.</p>
+          <div class="card-tags">
+            <span class="tag">Android</span>
+            <span class="tag">Offline</span>
+            <span class="tag">Productivity</span>
+            <span class="tag">$6.99 AUD</span>
+          </div>
+        </a>
+        <a href="/noctremote" class="app-card noctremote reveal">
+          <div class="card-arrow">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2.5 11.5l9-9M4 2.5h7.5v7.5"/>
+            </svg>
+          </div>
+          <p class="card-eyebrow">NoctRemote</p>
+          <h3 class="card-name">The System-Level<br />Smart Home Remote.</h3>
+          <p class="card-sub">Lightning-fast TV control over your local network. A floating glass overlay that lives inside your Android OS — not on top of it.</p>
+          <div class="card-tags">
+            <span class="tag">Android</span>
+            <span class="tag">Local Network</span>
+            <span class="tag">Smart TV</span>
+            <span class="tag">Overlay</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── ABOUT ─────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner reveal">
+        <div class="about-left">
+          <p class="label">The Studio</p>
+          <h2>One developer.<br />No shortcuts.</h2>
+        </div>
+        <div class="about-right">
+          <p>
+            Glowseed Studio is a <strong>solo software operation based in Australia</strong>. There is no team, no VC funding, and no growth-at-all-costs roadmap. Just a single developer with a specific frustration: the best category of tools — local, private, capable — simply did not exist at the quality level they deserved.
+          </p>
+          <p>
+            Modern app economics have created a perverse incentive to monetise attention rather than solve problems. The result is a market full of apps that are technically free but extract value in ways most users never see — through advertising profiles, behavioural analytics, and engagement loops. Glowseed Studio was built as a direct rejection of that model.
+          </p>
+          <p>
+            Every app we release is <strong>charged once and owned forever</strong>. Nothing is subscription-gated. Nothing phones home. Your device is yours, and the software that runs on it should behave accordingly.
+          </p>
+          <p>
+            If you have a question, a bug report, or just want to say something honest about the work: <a href="mailto:glowseedstudio@gmail.com" style="color: var(--text); font-weight: 500;">glowseedstudio@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-brand">© 2025 Glowseed Studio. All rights reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/noctforge">NoctForge</a></li>
+          <li><a href="/noctremote">NoctRemote</a></li>
+          <li><a href="mailto:glowseedstudio@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav shadow on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger sibling reveals in the same parent
+          const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+          const idx = siblings.indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, idx * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
