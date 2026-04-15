@@ -251,88 +251,133 @@
       transform: translateY(-1px);
     }
 
-    /* ── HERO MOCKUP ─────────────────────────────────────────────── */
+    /* ── HERO SHOTS ─────────────────────────────────────────────── */
     .hero-visual {
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       animation: fade-up 1s 0.32s var(--ease) both;
+      min-height: 540px;
     }
-    .mockup-frame {
-      width: 100%; max-width: 340px;
-      aspect-ratio: 9 / 17;
-      background: rgba(16, 16, 16, 0.90);
-      backdrop-filter: blur(24px);
-      border: 1px solid var(--border);
-      border-radius: 40px;
+    .hero-shot-stack {
       position: relative;
+      width: min(100%, 460px);
+      aspect-ratio: 10 / 14;
+      isolation: isolate;
+    }
+    .hero-shot {
+      position: absolute;
+      width: 56%;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow:
-        0 40px 100px rgba(0,0,0,0.8),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-    .mockup-frame::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 15%, rgba(74,20,140,0.08) 0%, transparent 55%),
-        radial-gradient(ellipse at 70% 80%, rgba(0,77,64,0.06) 0%, transparent 50%);
-    }
-    .mockup-notch {
-      position: absolute; top: 16px; left: 50%;
-      transform: translateX(-50%);
-      width: 80px; height: 22px;
-      background: var(--bg);
-      border-radius: 999px;
-      z-index: 2;
-    }
-    .mockup-placeholder {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 10px;
-      color: var(--text-3);
-      font-size: 11px;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-    .mockup-pill {
-      width: 62px; height: 62px;
-      border-radius: 50%;
-      background: rgba(18, 18, 18, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(30, 30, 30, 0.4);
       backdrop-filter: blur(20px);
-      border: 1px solid var(--border-hover);
-      box-shadow:
-        0 12px 40px rgba(0,0,0,0.7),
-        inset 0 1px 0 rgba(255,255,255,0.10);
-      margin-bottom: 6px;
-      position: relative;
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+      transform-origin: center center;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+      will-change: transform;
     }
-    /* Specular dome highlight */
-    .mockup-pill::before {
+    .hero-shot::after {
       content: '';
       position: absolute;
-      top: 13%; left: 18%;
-      width: 40%; height: 26%;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.16) 0%, transparent 80%);
-      border-radius: 50%;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.18), rgba(255,255,255,0.02) 35%, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.55;
     }
-    .mockup-pill::after {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    .hero-shot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
+    .hero-shot.one {
+      left: 2%;
+      top: 16%;
+      transform: rotate(-10deg) translateY(0);
+      z-index: 1;
+      animation: heroFloatA 8s ease-in-out infinite;
+    }
+    .hero-shot.two {
+      right: 0;
+      top: 6%;
+      transform: rotate(8deg) translateY(0);
+      z-index: 2;
+      animation: heroFloatB 9s ease-in-out infinite;
+    }
+    .hero-shot.three {
+      left: 20%;
+      bottom: 0;
+      transform: rotate(-4deg) translateY(0);
+      z-index: 3;
+      animation: heroFloatC 10s ease-in-out infinite;
+    }
+    .hero-shot.four {
+      right: 12%;
+      bottom: 8%;
+      transform: rotate(6deg) translateY(0);
+      z-index: 4;
+      animation: heroFloatD 11s ease-in-out infinite;
+    }
+    .hero-shot-stack:hover .hero-shot {
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.44);
+    }
+    .hero-shot-stack:hover .hero-shot.one { transform: rotate(-12deg) translate(-6px, -6px); }
+    .hero-shot-stack:hover .hero-shot.two { transform: rotate(10deg) translate(6px, -8px); }
+    .hero-shot-stack:hover .hero-shot.three { transform: rotate(-6deg) translate(-8px, 2px); }
+    .hero-shot-stack:hover .hero-shot.four { transform: rotate(8deg) translate(6px, -4px); }
     .hero-visual::before {
       content: '';
       position: absolute;
-      width: 280px; height: 280px;
-      background: radial-gradient(circle, rgba(74,20,140,0.12) 0%, transparent 65%);
+      width: 520px;
+      height: 520px;
       border-radius: 50%;
-      filter: blur(40px);
-      z-index: -1;
+      background: radial-gradient(circle, rgba(74,20,140,0.18) 0%, transparent 62%);
+      filter: blur(48px);
+      z-index: -2;
+    }
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,77,64,0.16) 0%, transparent 64%);
+      filter: blur(44px);
+      z-index: -3;
+      transform: translate(40px, 30px);
+    }
+    @keyframes heroFloatA {
+      0%, 100% { transform: rotate(-10deg) translateY(0); }
+      50% { transform: rotate(-10deg) translateY(-8px); }
+    }
+    @keyframes heroFloatB {
+      0%, 100% { transform: rotate(8deg) translateY(0); }
+      50% { transform: rotate(8deg) translateY(-10px); }
+    }
+    @keyframes heroFloatC {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      50% { transform: rotate(-4deg) translateY(-7px); }
+    }
+    @keyframes heroFloatD {
+      0%, 100% { transform: rotate(6deg) translateY(0); }
+      50% { transform: rotate(6deg) translateY(-9px); }
+    }
+    @media (max-width: 900px) {
+      .hero-visual { min-height: 460px; }
+      .hero-shot-stack { width: min(100%, 420px); }
+      .hero-shot { width: 58%; }
+    }
+    @media (max-width: 560px) {
+      .hero-visual { min-height: 400px; }
+      .hero-shot-stack { width: min(100%, 330px); }
+      .hero-shot { border-radius: 20px; }
     }
 
     /* ── SECTION SHARED ─────────────────────────────────────────── */
@@ -766,13 +811,19 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="mockup-frame">
-        <div class="mockup-notch"></div>
-        <div class="mockup-placeholder">
-          <!-- Replace with actual app screenshot -->
-          <div class="mockup-pill"></div>
-          <span style="font-size:11px; letter-spacing:0.10em; color: rgba(245,245,247,0.22);">App screenshot</span>
-        </div>
+      <div class="hero-shot-stack" aria-label="NoctRemote screenshots">
+        <figure class="hero-shot one">
+          <img src="/noctremote/hero-1.png" alt="NoctRemote screenshot 1" loading="eager" />
+        </figure>
+        <figure class="hero-shot two">
+          <img src="/noctremote/hero-2.png" alt="NoctRemote screenshot 2" loading="eager" />
+        </figure>
+        <figure class="hero-shot three">
+          <img src="/noctremote/hero-3.png" alt="NoctRemote screenshot 3" loading="eager" />
+        </figure>
+        <figure class="hero-shot four">
+          <img src="/noctremote/hero-4.png" alt="NoctRemote screenshot 4" loading="eager" />
+        </figure>
       </div>
     </div>
   </section>
