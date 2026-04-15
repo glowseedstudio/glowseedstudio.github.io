@@ -262,13 +262,23 @@
     }
     .hero-shot-stack {
       position: relative;
-      width: min(100%, 460px);
-      aspect-ratio: 10 / 14;
+      width: min(100%, 500px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 16px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(30, 30, 30, 0.28);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
       isolation: isolate;
     }
     .hero-shot {
-      position: absolute;
-      width: 56%;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 19;
       border-radius: 24px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.10);
@@ -293,45 +303,22 @@
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center top;
+      background: #0a0a0a;
     }
-    .hero-shot.one {
-      left: 2%;
-      top: 16%;
-      transform: rotate(-10deg) translateY(0);
-      z-index: 1;
-      animation: heroFloatA 8s ease-in-out infinite;
-    }
-    .hero-shot.two {
-      right: 0;
-      top: 6%;
-      transform: rotate(8deg) translateY(0);
-      z-index: 2;
-      animation: heroFloatB 9s ease-in-out infinite;
-    }
-    .hero-shot.three {
-      left: 20%;
-      bottom: 0;
-      transform: rotate(-4deg) translateY(0);
-      z-index: 3;
-      animation: heroFloatC 10s ease-in-out infinite;
-    }
-    .hero-shot.four {
-      right: 12%;
-      bottom: 8%;
-      transform: rotate(6deg) translateY(0);
-      z-index: 4;
-      animation: heroFloatD 11s ease-in-out infinite;
-    }
+    .hero-shot:nth-child(1) { transform: translateY(-4px); }
+    .hero-shot:nth-child(2) { transform: translateY(2px); }
+    .hero-shot:nth-child(3) { transform: translateY(3px); }
+    .hero-shot:nth-child(4) { transform: translateY(-3px); }
     .hero-shot-stack:hover .hero-shot {
       border-color: rgba(255, 255, 255, 0.18);
       box-shadow: 0 30px 60px rgba(0,0,0,0.44);
     }
-    .hero-shot-stack:hover .hero-shot.one { transform: rotate(-12deg) translate(-6px, -6px); }
-    .hero-shot-stack:hover .hero-shot.two { transform: rotate(10deg) translate(6px, -8px); }
-    .hero-shot-stack:hover .hero-shot.three { transform: rotate(-6deg) translate(-8px, 2px); }
-    .hero-shot-stack:hover .hero-shot.four { transform: rotate(8deg) translate(6px, -4px); }
+    .hero-shot-stack:hover .hero-shot:nth-child(1) { transform: translate(-2px, -7px); }
+    .hero-shot-stack:hover .hero-shot:nth-child(2) { transform: translate(2px, -5px); }
+    .hero-shot-stack:hover .hero-shot:nth-child(3) { transform: translate(-3px, 1px); }
+    .hero-shot-stack:hover .hero-shot:nth-child(4) { transform: translate(2px, -2px); }
     .hero-visual::before {
       content: '';
       position: absolute;
@@ -353,31 +340,18 @@
       z-index: -3;
       transform: translate(40px, 30px);
     }
-    @keyframes heroFloatA {
-      0%, 100% { transform: rotate(-10deg) translateY(0); }
-      50% { transform: rotate(-10deg) translateY(-8px); }
-    }
-    @keyframes heroFloatB {
-      0%, 100% { transform: rotate(8deg) translateY(0); }
-      50% { transform: rotate(8deg) translateY(-10px); }
-    }
-    @keyframes heroFloatC {
-      0%, 100% { transform: rotate(-4deg) translateY(0); }
-      50% { transform: rotate(-4deg) translateY(-7px); }
-    }
-    @keyframes heroFloatD {
-      0%, 100% { transform: rotate(6deg) translateY(0); }
-      50% { transform: rotate(6deg) translateY(-9px); }
-    }
     @media (max-width: 900px) {
       .hero-visual { min-height: 460px; }
-      .hero-shot-stack { width: min(100%, 420px); }
-      .hero-shot { width: 58%; }
+      .hero-shot-stack { width: min(100%, 440px); }
     }
     @media (max-width: 560px) {
-      .hero-visual { min-height: 400px; }
-      .hero-shot-stack { width: min(100%, 330px); }
-      .hero-shot { border-radius: 20px; }
+      .hero-visual { min-height: 380px; }
+      .hero-shot-stack {
+        width: min(100%, 360px);
+        gap: 10px;
+        padding: 12px;
+      }
+      .hero-shot { border-radius: 18px; }
     }
 
     /* ── SECTION SHARED ─────────────────────────────────────────── */
