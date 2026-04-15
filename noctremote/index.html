@@ -655,6 +655,37 @@
       color: var(--text);
     }
 
+    /* ── TRANSPARENCY ───────────────────────────────────────────── */
+    #transparency {
+      padding: 110px 0 70px;
+    }
+    .transparency-header {
+      max-width: 760px;
+      margin-bottom: 30px;
+    }
+    .transparency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .transparency-card h3 {
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+    }
+    .transparency-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #A1A1AA;
+    }
+    @media (max-width: 900px) {
+      .transparency-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── FOOTER ─────────────────────────────────────────────────── */
     footer { padding: 60px 0; border-top: 1px solid var(--border); }
     .footer-inner {
@@ -905,6 +936,42 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RADICAL TRANSPARENCY ─────────────────────────────────── -->
+  <section id="transparency">
+    <div class="container">
+      <div class="transparency-header reveal">
+        <h2 class="section-title">Radical Transparency.</h2>
+        <p class="section-body">No hidden trackers. No unnecessary access. Here is exactly what the app asks for and why.</p>
+      </div>
+      <div class="transparency-grid">
+        <article class="bento-card transparency-card reveal">
+          <h3>SYSTEM_ALERT_WINDOW (Draw over other apps)</h3>
+          <p>This is what allows the NoctRemote overlay bubble to float on your screen while you use other apps. We only use this to draw the remote UI. We cannot and do not record your screen.</p>
+        </article>
+        <article class="bento-card transparency-card reveal reveal-delay-1">
+          <h3>INTERNET &amp; NEARBY_WIFI_DEVICES</h3>
+          <p>Android bundles local network sockets under the Internet permission. We use this only to discover TVs on your Wi-Fi and send remote commands over local protocols (like WebSockets). We do not ship cloud telemetry code.</p>
+        </article>
+        <article class="bento-card transparency-card reveal reveal-delay-2">
+          <h3>ACCESS_WIFI_STATE, CHANGE_WIFI_STATE &amp; CHANGE_WIFI_MULTICAST_STATE</h3>
+          <p>These are used for reliable LAN discovery. Reading Wi-Fi state helps validate local endpoints, and multicast access is required for mDNS/SSDP discovery traffic to reach the app.</p>
+        </article>
+        <article class="bento-card transparency-card reveal reveal-delay-3">
+          <h3>VIBRATE</h3>
+          <p>Used exclusively for tactile button feedback, so on-screen controls feel physical when pressed.</p>
+        </article>
+        <article class="bento-card transparency-card reveal">
+          <h3>FOREGROUND_SERVICE &amp; FOREGROUND_SERVICE_SPECIAL_USE</h3>
+          <p>Required by modern Android so the floating overlay service can stay alive while you are using other apps. This keeps the remote responsive and prevents the OS from killing it in the background.</p>
+        </article>
+        <article class="bento-card transparency-card reveal reveal-delay-1">
+          <h3>The Absolute Zero List</h3>
+          <p>No Location access. No Contacts access. No Camera access. No analytics SDKs. No ad network SDKs. If an app does not need a piece of data to function, it should not have it.</p>
+        </article>
       </div>
     </div>
   </section>
