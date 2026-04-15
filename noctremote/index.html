@@ -314,7 +314,7 @@
     }
     .hero-shot:nth-child(1) {
       grid-area: featured;
-      min-height: 420px;
+      min-height: 360px;
       transform: translateY(-2px);
       z-index: 2;
     }
@@ -332,6 +332,10 @@
       grid-area: side4;
       min-height: 132px;
       transform: translateY(-1px);
+    }
+    .hero-shot:nth-child(1) img {
+      object-fit: cover;
+      object-position: center top;
     }
     .hero-shot-stack:hover .hero-shot {
       border-color: rgba(255, 255, 255, 0.18);
