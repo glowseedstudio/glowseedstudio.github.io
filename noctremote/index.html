@@ -882,7 +882,7 @@
             </svg>
           </div>
           <h3>Absolute Privacy</h3>
-          <p>NoctRemote enforces a strict private-address firewall in code. Every outbound connection is blocked unless it falls within RFC 1918 ranges. Your commands go to your TV — nowhere else.</p>
+          <p>NoctRemote enforces a strict private-address firewall in code. Every outbound connection is blocked unless it falls within RFC 1918 ranges. Your commands stay on your local network. Transport encryption depends on the TV vendor protocol.</p>
           <div class="privacy-row">
             <div class="privacy-stat">
               <span class="privacy-stat-value">0</span>
@@ -984,7 +984,7 @@
         </article>
         <article class="bento-card transparency-card reveal reveal-delay-1">
           <h3>INTERNET &amp; NEARBY_WIFI_DEVICES</h3>
-          <p>Android bundles local network sockets under the Internet permission. We use this only to discover TVs on your Wi-Fi and send remote commands over local protocols (like WebSockets). We do not ship cloud telemetry code.</p>
+          <p>Android bundles local network sockets under the Internet permission. We use this only to discover TVs on your Wi-Fi and send remote commands over local protocols (HTTP/WebSocket/TLS depending on the TV). We do not ship cloud telemetry code.</p>
         </article>
         <article class="bento-card transparency-card reveal reveal-delay-2">
           <h3>ACCESS_WIFI_STATE, CHANGE_WIFI_STATE &amp; CHANGE_WIFI_MULTICAST_STATE</h3>
