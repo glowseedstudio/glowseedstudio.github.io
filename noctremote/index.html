@@ -516,107 +516,40 @@
       height: 380px;
       display: flex; align-items: center; justify-content: center;
     }
-    .glass-demo-bg {
-      position: absolute; inset: 0;
+    .glass-video-frame {
+      position: absolute;
+      inset: 0;
       border-radius: var(--radius-lg);
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(14,14,14,0.72);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07);
       overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      isolation: isolate;
     }
-    /* Muted atmospheric aura inside demo box */
-    .glass-demo-bg::before {
+    .glass-video-frame::before {
       content: '';
       position: absolute;
-      width: 220px; height: 220px;
-      top: -60px; left: -60px;
-      background: radial-gradient(circle, rgba(74,20,140,0.14) 0%, transparent 65%);
-      border-radius: 50%;
-      filter: blur(40px);
-    }
-    .glass-demo-bg::after {
-      content: '';
-      position: absolute;
-      width: 180px; height: 180px;
-      bottom: -40px; right: -40px;
-      background: radial-gradient(circle, rgba(0,77,64,0.12) 0%, transparent 65%);
-      border-radius: 50%;
-      filter: blur(40px);
-    }
-
-    /* The pill — premium glass dome */
-    .glass-pill-demo {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: rgba(18, 18, 18, 0.82);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-hover);
-      box-shadow:
-        0 16px 48px rgba(0,0,0,0.70),
-        inset 0 1px 0 rgba(255,255,255,0.10);
-      position: relative;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.12) 0%, transparent 36%),
+        radial-gradient(circle at 82% 84%, rgba(74,20,140,0.16) 0%, transparent 46%),
+        radial-gradient(circle at 20% 78%, rgba(0,77,64,0.14) 0%, transparent 44%);
+      pointer-events: none;
       z-index: 2;
-      animation: pill-float 3.5s ease-in-out infinite;
     }
-    /* Specular dome highlight */
-    .glass-pill-demo::before {
-      content: '';
+    .glass-video {
       position: absolute;
-      top: 12%; left: 18%;
-      width: 38%; height: 26%;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.14) 0%, transparent 80%);
-      border-radius: 50%;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+      border: 0;
+      display: block;
     }
-    /* Centre icon */
-    .glass-pill-demo::after {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.88);
-      box-shadow: 0 0 10px rgba(255,255,255,0.10);
+    .glass-video::-webkit-media-controls-panel {
+      background: linear-gradient(to top, rgba(8,8,8,0.82), rgba(8,8,8,0.26));
     }
-
-    /* Ghost remote panel */
-    .glass-panel-demo {
-      position: absolute;
-      width: 230px;
-      background: rgba(14, 14, 14, 0.85);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.70), inset 0 1px 0 rgba(255,255,255,0.05);
-      z-index: 1;
-      right: 20px; bottom: 40px;
-      animation: panel-appear 3.5s ease-in-out infinite;
-    }
-    .panel-row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .panel-row:last-child { margin-bottom: 0; }
-    .panel-btn {
-      flex: 1; height: 30px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-    }
-    .panel-btn.active {
-      background: rgba(255,255,255,0.09);
-      border-color: var(--border-hover);
-    }
-
-    @keyframes pill-float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-    @keyframes panel-appear {
-      0%, 30%  { opacity: 0; transform: scale(0.95) translateY(8px); }
-      50%,80%  { opacity: 1; transform: scale(1) translateY(0); }
-      100%     { opacity: 0; transform: scale(0.95) translateY(8px); }
-    }
-
     .glass-text .section-label { margin-bottom: 16px; }
     .glass-text .section-body  { margin-top: 16px; }
 
@@ -912,23 +845,11 @@
     <div class="container">
       <div class="glass-inner">
         <div class="glass-visual reveal">
-          <div class="glass-demo-bg"></div>
-          <div class="glass-pill-demo"></div>
-          <div class="glass-panel-demo">
-            <div class="panel-row">
-              <div class="panel-btn"></div>
-              <div class="panel-btn"></div>
-              <div class="panel-btn"></div>
-            </div>
-            <div class="panel-row">
-              <div class="panel-btn active"></div>
-              <div class="panel-btn"></div>
-            </div>
-            <div class="panel-row">
-              <div class="panel-btn"></div>
-              <div class="panel-btn active"></div>
-              <div class="panel-btn"></div>
-            </div>
+          <div class="glass-video-frame">
+            <video class="glass-video" autoplay muted loop playsinline preload="metadata" controls>
+              <source src="vid.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
         <div class="glass-text reveal reveal-delay-1">
